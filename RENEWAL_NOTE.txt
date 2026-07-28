@@ -1,0 +1,2 @@
+This branch represents a renewed project baseline.
+The previous main branch content is deprecated and should be treated as legacy.
