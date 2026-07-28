@@ -10,7 +10,10 @@ export default defineConfig(() => {
   const isGitHubPages = Boolean(process.env.GITHUB_ACTIONS);
 
   return {
-    base: basePath || (isGitHubPages ? `/${repoName}/` : '/'),
+    // Use an explicit base when provided, otherwise use a relative base for
+    // GitHub Pages so the built assets are referenced with relative paths.
+    // This avoids 404s when the site is hosted under a repo subpath.
+    base: basePath || (isGitHubPages ? './' : '/'),
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
