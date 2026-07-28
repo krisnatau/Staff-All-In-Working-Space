@@ -271,7 +271,7 @@ export default function App() {
     });
 
     try {
-      const response = await fetch('/api/ai/screen-candidate', {
+      const response = await fetch(`${import.meta.env.BASE_URL}api/ai/screen-candidate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
