@@ -189,6 +189,8 @@ Kembalikan format JSON:
   });
 
   // Vite or Static files handling
+  const distPath = path.join(process.cwd(), 'dist');
+
   if (process.env.NODE_ENV !== 'production') {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -196,12 +198,15 @@ Kembalikan format JSON:
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
   }
+
+  app.get('/favicon.ico', (req, res) => {
+    res.redirect(301, '/favicon.svg');
+  });
 
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`ATS Server running on http://0.0.0.0:${PORT}`);
